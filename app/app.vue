@@ -202,6 +202,24 @@ const settings = reactive({
 
 const copy = computed(() => messages[locale.value]);
 
+const getScreenDefaults = () => {
+  const pixelRatio = window.devicePixelRatio || 1;
+  const cssWidth = Math.max(window.screen.width, window.innerWidth);
+  const cssHeight = Math.max(window.screen.height, window.innerHeight);
+  const shortSide = Math.min(cssWidth, cssHeight);
+  const isCoarsePointer = window.matchMedia("(pointer: coarse)").matches;
+  const isPhone = isCoarsePointer && shortSide <= 540;
+  const isTablet = isCoarsePointer && shortSide > 540 && shortSide <= 920;
+
+  return {
+    strengthPercent: isPhone ? 35 : settings.strengthPercent,
+    distanceCm: isPhone ? 34 : isTablet ? 38 : settings.distanceCm,
+    diagonalInch: isPhone ? 6.7 : isTablet ? 11 : settings.diagonalInch,
+    resX: Math.max(640, Math.round(cssWidth * pixelRatio)),
+    resY: Math.max(480, Math.round(cssHeight * pixelRatio))
+  };
+};
+
 const hasExternalRefractifyLayer = () => {
   const isOwnElement = (element: Element | null) => element?.getAttribute("data-myopic-defocus-nuxt") === "true";
   const layer = document.getElementById("blurLayer");
@@ -236,8 +254,7 @@ watch([locale, enabled, settings], () => {
 }, { deep: true });
 
 onMounted(() => {
-  settings.resX = window.screen.width * window.devicePixelRatio;
-  settings.resY = window.screen.height * window.devicePixelRatio;
+  Object.assign(settings, getScreenDefaults());
 
   const saved = localStorage.getItem(STORAGE_KEY);
   if (saved) {

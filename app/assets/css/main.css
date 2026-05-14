@@ -12,6 +12,11 @@
   color: #1f2433;
 }
 
+html {
+  min-height: 100%;
+  -webkit-text-size-adjust: 100%;
+}
+
 * {
   box-sizing: border-box;
 }
@@ -30,9 +35,15 @@ input {
   font: inherit;
 }
 
+button,
+a,
+input {
+  touch-action: manipulation;
+}
+
 .app-shell {
   min-height: 100dvh;
-  padding: 32px;
+  padding: clamp(18px, 3vw, 32px);
 }
 
 .control-surface {
@@ -64,6 +75,7 @@ h1 {
   font-size: clamp(32px, 7vw, 76px);
   line-height: 0.95;
   letter-spacing: 0;
+  overflow-wrap: anywhere;
 }
 
 .locale-switch {
@@ -189,6 +201,7 @@ h1 {
 
 input[type="range"] {
   width: 100%;
+  min-height: 30px;
   accent-color: #2f7cf6;
 }
 
@@ -326,7 +339,11 @@ input[type="number"] {
 
 @media (max-width: 840px) {
   .app-shell {
-    padding: 18px;
+    padding:
+      max(14px, env(safe-area-inset-top))
+      max(14px, env(safe-area-inset-right))
+      max(18px, env(safe-area-inset-bottom))
+      max(14px, env(safe-area-inset-left));
   }
 
   .topbar,
@@ -336,16 +353,140 @@ input[type="number"] {
     flex-direction: column;
   }
 
+  .topbar {
+    gap: 14px;
+  }
+
+  h1 {
+    font-size: clamp(34px, 12vw, 52px);
+    line-height: 1.02;
+  }
+
+  .locale-switch {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    width: 100%;
+  }
+
+  .locale-switch button {
+    min-width: 0;
+    height: 42px;
+  }
+
   .workspace,
   .resolution-grid {
     grid-template-columns: 1fr;
+  }
+
+  .workspace {
+    gap: 14px;
+    margin-top: 18px;
   }
 
   .panel {
     min-height: auto;
   }
 
+  .primary-panel,
+  .preview-panel {
+    padding: 18px;
+  }
+
+  .power-button {
+    width: 100%;
+    min-width: 0;
+    height: 48px;
+  }
+
+  .slider-grid {
+    gap: 12px;
+    margin-top: 18px;
+  }
+
+  .slider-grid label,
+  .resolution-grid label {
+    padding: 14px;
+  }
+
+  .preview-panel h2 {
+    max-width: 100%;
+    font-size: clamp(24px, 8vw, 32px);
+    line-height: 1.14;
+  }
+
+  .preview-panel p {
+    line-height: 1.65;
+  }
+
+  .sample-lines {
+    gap: 10px;
+    margin-top: 28px;
+  }
+
+  .github-hover,
+  .github-hover a {
+    width: 100%;
+  }
+
+  .github-hover a {
+    justify-content: center;
+  }
+
+  .github-hover p {
+    position: static;
+    width: 100%;
+    margin-top: 10px;
+    opacity: 1;
+    pointer-events: auto;
+    transform: none;
+  }
+
   .footer-row small {
     text-align: left;
+  }
+}
+
+@media (max-width: 560px) {
+  .control-surface {
+    width: 100%;
+  }
+
+  .eyebrow,
+  .label {
+    font-size: 11px;
+  }
+
+  h1 {
+    font-size: clamp(30px, 13vw, 44px);
+  }
+
+  .panel {
+    border-radius: 10px;
+  }
+
+  .status-row strong {
+    font-size: 20px;
+    line-height: 1.2;
+  }
+
+  .slider-grid label strong {
+    font-size: 22px;
+  }
+
+  input[type="number"] {
+    height: 46px;
+    font-size: 16px;
+  }
+
+  input[type="range"] {
+    min-height: 36px;
+  }
+
+  .sample-lines span {
+    height: 12px;
+  }
+
+  .modal {
+    padding: 20px;
   }
 }
