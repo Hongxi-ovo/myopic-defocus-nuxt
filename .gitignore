@@ -1,0 +1,17 @@
+node_modules
+.nuxt
+.output
+dist
+.data
+.yarn/*
+!.yarn/releases
+!.yarn/plugins
+!.yarn/sdks
+!.yarn/versions
+.pnp.*
+.env
+.env.*
+!.env.example
+.DS_Store
+Thumbs.db
+*.log

@@ -1,0 +1,9 @@
+Myopic Defocus Nuxt
+
+This project adapts the core SVG filter and full-screen overlay approach from:
+
+  Refractify Myopic Defocus
+  https://github.com/refractify/myopic_defocus
+
+The upstream project is licensed under GPL-3.0. This project is also licensed
+under GPL-3.0-only.
